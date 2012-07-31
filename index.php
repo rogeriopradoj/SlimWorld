@@ -61,4 +61,24 @@ $app->post('/book', function() use($app, $db){
     echo json_encode(array('id' => $result['id']));
 });
 
+$app->put('/book/:id', function($id) use ($app, $db) {
+    $app->response()->header('Content-Type', 'application/json');
+    $book = $db->books()->where('id', $id);
+    if ($book->fetch()) {
+        $post = $app->request()->put();
+        $result = $book->update($post);
+        echo json_encode(array(
+            'status' => (bool)$result,
+            'message' => 'Book updated successfully'
+        ));
+    } else {
+        echo json_encode(
+            array(
+                'status' => false,
+                'message' => 'Book id ' . $id . ' does not exist'
+            )
+        );
+    }
+});
+
 $app->run();
