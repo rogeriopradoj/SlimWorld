@@ -54,4 +54,11 @@ $app->get('/book/:id', function($id) use ($app, $db) {
     }
 });
 
+$app->post('/book', function() use($app, $db){
+    $app->response()->header('Content-Type', 'application/json');
+    $book = $app->request()->post();
+    $result = $db->books->insert($book);
+    echo json_encode(array('id' => $result['id']));
+});
+
 $app->run();
