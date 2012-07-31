@@ -32,7 +32,7 @@ $app->get('/books', function() use ($app, $db) {
     echo json_encode($books);
 });
 
-$app->get('/book/:id', function() use ($app, $db) {
+$app->get('/book/:id', function($id) use ($app, $db) {
     $app->response()->header('Content-Type', 'application/json');
     $book = $db->books()->where('id', $id);
     if ($data = $book->fetch()) {
