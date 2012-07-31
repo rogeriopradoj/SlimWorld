@@ -81,4 +81,25 @@ $app->put('/book/:id', function($id) use ($app, $db) {
     }
 });
 
+$app->delete('/book/:id', function($id) use($app, $db) {
+    $app->response()->header('Content-Type', 'application/json');
+    $book = $db->books()->where('id', $id);
+    if ($book->fetch()) {
+        $result = $book->delete();
+        echo json_encode(
+            array(
+                'status' => true,
+                'message' => 'Book deleted successfully'
+            )
+        );
+    } else {
+        echo json_encode(
+            array(
+                'status' => false,
+                'message' => 'Book id ' . $id . ' does not exist'
+            )
+        );
+    }
+});
+
 $app->run();
