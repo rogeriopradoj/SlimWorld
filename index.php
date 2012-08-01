@@ -1,6 +1,7 @@
 <?php
-require 'vendor/Slim/Slim.php';
-require 'vendor/NotORM/NotORM.php';
+require 'vendor/autoload.php';
+
+include 'vendor/notorm/notorm/NotORM.php';
 
 $dsn = 'sqlite:' . realpath('./data/db.sqlite');
 
